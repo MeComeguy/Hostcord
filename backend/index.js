@@ -31,7 +31,7 @@ const client = new Client({
 });
 
 const token = process.env.TOKEN; // token
-lient.login(token);
+client.login(token);
 
 const generateUniqueId = require('generate-unique-id');
 client.on('messageCreate', async (message) => {
@@ -102,7 +102,13 @@ app.get('/:filename', (req, res) => {
       }
   });
 });
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
+
+// -all handler for any request to serve the React frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
