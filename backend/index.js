@@ -41,13 +41,17 @@ client.on('messageCreate', async (message) => {
       if (message.attachments.size > 0) {
         const attachment = message.attachments.first();
         if (attachment.contentType && attachment.contentType.startsWith("image/")) {
-          const id = generateUniqueId({
-            length: 6,
-          });
-          message.channel.send("Your image has been uploaded! Check your DM to get the link.");
-          await downloadFile(attachment.proxyURL, id + ".png")
-          message.author.send("Your file has been uploaded link : " + "http://localhost:5000/" + id + ".png")
-          saveFileInfoToJSON(message.author.id, id, ".png");
+          const id = generateUniqueId({ length: 6 });
+
+          try {
+            message.channel.send("Your image has been uploaded! Check your DM to get the link.");
+            await downloadFile(attachment.proxyURL, id + ".png")
+            message.author.send(`Your file has been uploaded. [Link](${process.env.PRODUCTION_LINK}/${id}.png)`);
+            saveFileInfoToJSON(message.author.id, id, ".png");
+          } catch (error) {
+            console.error('Error processing file:', error);
+            message.channel.send("There was an error processing your file. Please try again.");
+          }
         } else {
           message.channel.send("Your file should be an image with a valid image extension (.png, .jpg, etc.).");
         }
