@@ -99,9 +99,3 @@ MIT
 > [Wajed Team](https://www.wajed.network) &nbsp;&middot;&nbsp;
 > GitHub [@MeComeguy]() &nbsp;&middot;&nbsp;
 > Discord [@comeguy](https://discord.com/users/1119232751678259200)
-
----
-
-> [your-website.com](https://www.your-website.com) &nbsp;&middot;&nbsp;
-> GitHub [@yourusername](https://github.com/yourusername) &nbsp;&middot;&nbsp;
-> Twitter [@yourusername](https://twitter.com/yourusername)
