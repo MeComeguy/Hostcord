@@ -7,7 +7,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
-
+require('dotenv').config();
 const app = express();
 const port = 5000;
 
@@ -30,13 +30,14 @@ const client = new Client({
   fetchAllMembers: true,
 });
 
-const token = ''; // token
-client.login(token);
+const token = process.env.TOKEN; // token
+lient.login(token);
 
 const generateUniqueId = require('generate-unique-id');
 client.on('messageCreate', async (message) => {
   if (!message.author.bot) {
-    if (message.channel.id === "") { // channel id
+    const channelId = process.env.CHANNEL_ID;
+    if (message.channel.id === channelId) {
       if (message.attachments.size > 0) {
         const attachment = message.attachments.first();
         if (attachment.contentType && attachment.contentType.startsWith("image/")) {
